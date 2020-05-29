@@ -78,7 +78,8 @@ class TTable {
   }
 
   inline void Increment(const unsigned e, const unsigned f, const double x) {
-    counts[e].find(f)->second += x; // Ignore race conditions here.
+#pragma omp atomic
+    counts[e].find(f)->second += x;
   }
 
   void NormalizeVB(const double alpha) {
